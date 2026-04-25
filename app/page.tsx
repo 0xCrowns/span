@@ -234,9 +234,9 @@ export default function Page() {
       if (walletConnected && adapterRef.current) {
         const kit = new AppKit();
         const result = await kit.estimateSwap({
-          from: { adapter: adapterRef.current, chain: payload.fromChain },
-          tokenIn: payload.sourceToken,
-          tokenOut: payload.destinationToken,
+          from: { adapter: adapterRef.current, chain: payload.fromChain as any },
+          tokenIn: payload.sourceToken as any,
+          tokenOut: payload.destinationToken as any,
           amountIn: payload.amount,
           config: {
             slippageBps: payload.slippageBps,

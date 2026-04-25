@@ -2,42 +2,118 @@
 
 A Next.js + TypeScript Arc App Kit dashboard for Web3 swapping, bridging, and transfers.
 
-## Setup
+## Quick Start
 
-1. Copy `.env.local.example` to `.env.local`.
-2. Add your `PRIVATE_KEY` if you want server-side wallet fallback support.
-3. Set `NEXT_PUBLIC_APP_KIT_KEY` for browser quote previews, or `APP_KIT_KEY` for server-side quote estimation.
-4. Install dependencies:
-   `npm install`
-5. Run the app locally:
-   `npm run dev`
+```bash
+# Install dependencies
+npm install
 
-## Branch workflow
+# Run development server
+npm run dev
+```
 
-This repository uses a `dev` feature branch for active development. Push changes there first, then merge into `main` when ready.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+## Environment Setup
+
+### Local Development
+
+1. Copy `.env.local.example` to `.env.local`:
+   ```bash
+   cp .env.local.example .env.local
+   ```
+
+2. Add your values to `.env.local`:
+   - `PRIVATE_KEY` - Your EVM wallet private key (optional, for server-side fallback)
+   - `NEXT_PUBLIC_APP_KIT_KEY` - Public App Kit key for browser quotes
+   - `APP_KIT_KEY` - Server-side App Kit key for swap quotes
+
+### Vercel Deployment
+
+1. **Push to GitHub**:
+   ```bash
+   git add -A
+   git commit -m "feat: production ready"
+   git push -u origin dev
+   ```
+
+2. **Import to Vercel**:
+   - Go to [vercel.com](https://vercel.com)
+   - Click \"Add New...\" ? \"Project\"
+   - Import your GitHub repository
+
+3. **Configure Environment Variables**:
+   In Vercel project settings, add these variables:
+   - `PRIVATE_KEY` (optional, for server-side fallback)
+   - `APP_KIT_KEY` (for server-side swap quotes)
+   - `NEXT_PUBLIC_APP_KIT_KEY` (for browser quotes)
+
+4. **Deploy**:
+   - Click \"Deploy\" and wait for the build to complete
+   - Your app will be live at `https://your-project.vercel.app`
 
 ## Features
 
-- Browser wallet connect flow for MetaMask/EIP-1193 wallets
-- Server-side fallback with a private key adapter
-- Live token selection for swap, bridge, and transfer flows
-- Swap quote preview support with Arc App Kit key handling
-- Persistent recent activity history stored in local storage
-- Clean UI with status, quote output, and error handling
+- **Browser Wallet Connect** - MetaMask/EIP-1193 provider integration
+- **Server-side Fallback** - Private key adapter when no browser wallet
+- **Live Token Selection** - Dropdowns for chains and tokens
+- **Swap Quote Preview** - Get swap estimates before executing
+- **Action History** - Recent transactions stored in local storage
 
-## Project structure
+## Project Structure
 
-- `app/page.tsx` — Browser wallet UI, live token selection, quote preview, and transaction flow.
-- `app/api/bridge/route.ts` — Server-side bridge endpoint.
-- `app/api/transfer/route.ts` — Server-side transfer endpoint.
-- `app/api/swap/route.ts` — Server-side swap endpoint with optional App Kit key support.
-- `app/api/quote-swap/route.ts` — Server-side swap quote endpoint using `APP_KIT_KEY`.
-- `lib/appKit.ts` — Shared App Kit initialization and private-key adapter creation.
+```
+span/
++-- app/
+¦   +-- page.tsx           # Main UI with wallet connect & actions
+¦   +-- layout.tsx         # Next.js layout
+¦   +-- globals.css        # Dark theme styling
+¦   +-- api/
+¦       +-- bridge/        # Bridge endpoint
+¦       +-- transfer/      # Transfer endpoint
+¦       +-- swap/          # Swap endpoint
+¦       +-- quote-swap/    # Swap quote endpoint
++-- lib/
+¦   +-- appKit.ts          # App Kit initialization
++-- next.config.js         # Next.js configuration
++-- package.json           # Dependencies
++-- tsconfig.json          # TypeScript config
+```
 
-## Notes
+## Supported Chains
 
-- Browser wallet actions use a local `window.ethereum` adapter.
-- Swap quotes use `kit.estimateSwap()` and can run from browser or server.
-- `.env.local` is gitignored; keep secrets there.
-- For supported chains and tokens, refer to Arc App Kit docs: https://docs.arc.network/app-kit.
+- Ethereum Sepolia (testnet)
+- Arc Testnet
+- Polygon Mumbai (testnet)
+- Optimism Goerli (testnet)
+
+## Supported Tokens
+
+- USDC
+- USDT
+- NATIVE (chain native token)
+- DAI
+- ETH
+
+## API Endpoints
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/api/bridge` | POST | Bridge tokens across chains |
+| `/api/transfer` | POST | Transfer tokens to address |
+| `/api/swap` | POST | Swap tokens on same chain |
+| `/api/quote-swap` | POST | Get swap quote estimate |
+
+## Security Notes
+
+- Never commit `.env.local` or private keys to version control
+- Use Vercel environment variables for production secrets
+- The `PRIVATE_KEY` is only used server-side and never exposed to clients
+- App Kit keys can be obtained from [Circle Console](https://console.circle.com/)
+
+## Documentation
+
+- Arc App Kit Docs: https://docs.arc.network/app-kit
+- Circle Console: https://console.circle.com/
+- Vercel Deployment: https://vercel.com/docs/deployments/overview
 
