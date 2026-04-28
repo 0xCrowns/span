@@ -117,3 +117,81 @@ footer {
   text-align: center;
   color: #7ea9ca;
 }
+
+/* Tab Navigation */
+.tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.tabs button {
+  flex: 1;
+  min-width: 120px;
+  padding: 0.85rem 1rem;
+  background: rgba(12, 24, 40, 0.9);
+  border: 1px solid rgba(148, 188, 255, 0.12);
+  color: #94bceb;
+  font-weight: 500;
+}
+
+.tabs button.active {
+  background: #72d6ff;
+  color: #07121d;
+  border-color: #72d6ff;
+}
+
+.tabs button:hover:not(.active) {
+  background: rgba(114, 214, 255, 0.1);
+}
+
+/* Faucet Tab Styles */
+.faucet-info {
+  padding: 1rem 0;
+}
+
+.faucet-info h3 {
+  margin: 1.5rem 0 1rem;
+  color: #e7edf4;
+}
+
+.faucet-info ol {
+  padding-left: 1.5rem;
+  color: #c8d6e5;
+  line-height: 1.8;
+}
+
+.faucet-info ol li {
+  margin-bottom: 0.5rem;
+}
+
+.faucet-info a {
+  color: #72d6ff;
+  text-decoration: underline;
+}
+
+.faucet-info .note {
+  margin: 1.5rem 0;
+  padding: 1rem;
+  background: rgba(114, 214, 255, 0.08);
+  border-radius: 12px;
+  color: #94bceb;
+}
+
+.faucet-button {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.95rem 1.35rem;
+  background: #72d6ff;
+  color: #07121d !important;
+  border-radius: 14px;
+  text-decoration: none !important;
+  font-weight: 500;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.faucet-button:hover {
+  transform: translateY(-1px);
+  background: #5bc4e8;
+}
